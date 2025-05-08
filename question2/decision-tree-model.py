@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from extract import extract_features
 
@@ -25,7 +25,7 @@ clf.fit(X_train, y_train)
 
 y_pred = clf.predict(X_test)
 
-accuracy = np.sum(y_pred == y_test) / len(y_test)
+accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
 
 target_names = label_encoder.classes_

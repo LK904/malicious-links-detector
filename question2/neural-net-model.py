@@ -25,13 +25,15 @@ class URLDataset(Dataset):
 class URLClassifier(nn.Module):
     def __init__(self, input_dim):
         super(URLClassifier, self).__init__()
-        self.fc1 = nn.Linear(input_dim, 64)
-        self.fc2 = nn.Linear(64, 32)
+        self.fc1 = nn.Linear(input_dim, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 32)
         self.out = nn.Linear(32, 3)  # 3 classes
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
+        x = F.relu(self.fc3(x))
         return self.out(x)
 
 df = pd.read_csv("../data/malicious_phish.csv")
@@ -65,7 +67,7 @@ criterion = nn.CrossEntropyLoss()
 
 
 print(torch.cuda.is_available())
-epochs = 10
+epochs = 30
 for epoch in range(epochs):
     model.train()
     total_loss = 0
